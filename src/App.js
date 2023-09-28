@@ -12,7 +12,7 @@ export default function App() {
 
   useEffect(() => {
     if(isLoading){
-      fetchFilmData('http://localhost:8080/demo/allFilms');
+      fetchFilmData('http://localhost:8080/allFilms');
       isLoading=false;
     }
     
@@ -26,7 +26,7 @@ export default function App() {
   }
 
   function FetchFilteredList(i){
-    fetchFilmData('http://localhost:8080/demo/filterFilmsByCategory?id=' + i);
+    fetchFilmData('http://localhost:8080/filterFilmsByCategory?id=' + i);
   }
 
   return (

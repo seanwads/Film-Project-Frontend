@@ -41,7 +41,7 @@ export default function FilmCard({ filmInfo, fetchFilms, updateCardCount }){
 function InfoCard({ film, updateFilm, fetchFilmList, categoryName }){
 
     async function deleteFilm(){
-        await fetch('http://localhost:8080/demo/deleteFilmByID?id=' + film.film_id, {method:'DELETE'});
+        await fetch('http://localhost:8080/deleteFilmByID?id=' + film.film_id, {method:'DELETE'});
         fetchFilmList();
       }
 
@@ -75,7 +75,7 @@ function UpdateForm({ film, updateFilm, fetchFilmList }){
     const handleSubmit = async (event) => {
         event.preventDefault();
     
-        await fetch('http://localhost:8080/demo/updateFilm', {
+        await fetch('http://localhost:8080/updateFilm', {
           method:'PUT',
           headers:{'Content-Type': 'application/json'},
           body: JSON.stringify({
