@@ -4,22 +4,27 @@ import { Button, Card, CardBody, CardTitle, CardText, ButtonGroup, Form, FormGro
 export default function FilmCard({ filmInfo, fetchFilms, updateCardCount }){
   
     const[updateActive, setUpdateActive] = useState(false);
-    const[category, setCategory] = useState("");
-
-    // useEffect(() => {
-    //     fetchCategoryName();
-    // })
+    const[categories, setCategories] = useState([]);
+    let isLoading=true;
+    
   
     async function updateCard(){
         setUpdateActive(!updateActive);
     }
-    
-    // async function fetchCategoryName(){
-    //     const response = await fetch('http://localhost:8080/demo/getCategoryNames?id=' + filmInfo.film_id);
-    //     const body = await response.json;
-    //     setCategory(body);
-    // }
 
+    useEffect(() => {
+        if(isLoading){
+            fetchCategoryData('http://localhost:8080/getCategory?id=' + filmInfo.film_id);
+            isLoading=false;
+        }
+    },[])
+
+    async function fetchCategoryData(link) {
+        const response = await fetch(link);
+        const body = await response.json();
+        setCategories(body);
+    }
+    
     return (
         <Card key={filmInfo.film_id} data-testid={'film-card-' + filmInfo.film_id} style={{minWidth: '50rem', padding:'15px', margin: '15px'}}>
             {updateActive
@@ -31,19 +36,22 @@ export default function FilmCard({ filmInfo, fetchFilms, updateCardCount }){
                     film={filmInfo}
                     updateFilm={() => updateCard()}
                     fetchFilmList={() => fetchFilms(0)}
-                    categoryName={category}/>
+                    categoryList={categories}/>
             }
         </Card>
     )
     
 }
 
-function InfoCard({ film, updateFilm, fetchFilmList, categoryName }){
+function InfoCard({ film, updateFilm, fetchFilmList, categoryList}){
 
     async function deleteFilm(){
         await fetch('http://localhost:8080/deleteFilmByID?id=' + film.film_id, {method:'DELETE'});
         fetchFilmList();
-      }
+    }
+    
+    
+
 
     return(
         <div>
@@ -53,7 +61,8 @@ function InfoCard({ film, updateFilm, fetchFilmList, categoryName }){
                 </CardTitle>
 
                 <CardSubtitle>
-                    {  }
+                    { film.rating } 
+                    {categoryList.map(category => <p key={category.category_id}>{category.name} </p>)}
                 </CardSubtitle>
 
                 <CardText>
