@@ -29,8 +29,9 @@ export default function AddCardForm({ updateFilms}){
   
     return(
       <div id='addFilmForm'>
-        <Button color='primary' onClick={toggle}>
-          +
+        <br></br>
+        <Button color='primary' onClick={toggle} style={{minWidth:'20px', minHeight:'20px'}}>
+          <h2>+</h2>
         </Button>
         <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>

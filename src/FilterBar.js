@@ -12,7 +12,6 @@ export default function FilterBar({ getFilteredList }){
     return(
       <Container fluid>
         <h2 style={{ padding:5}}>Filter by category:</h2>
-  
         <ButtonGroup>
           <FilterButton 
             clickGetFilter={() => getFilter(0)} 

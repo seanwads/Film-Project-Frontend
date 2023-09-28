@@ -1,9 +1,10 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { CardGroup, Navbar, NavbarBrand } from 'reactstrap';
+import { CardGroup, Col, Navbar, NavbarBrand, Row } from 'reactstrap';
 import FilmCard from './FilmCard';
 import FilterBar from './FilterBar';
 import AddCard from './AddCard';
+import FilterBarRating from './FilterBarRating';
 
 export default function App() {
 
@@ -25,29 +26,45 @@ export default function App() {
     setFilmResponse(body);
   }
 
-  function FetchFilteredList(i){
+  function FetchFilteredCatList(i){
     fetchFilmData('http://localhost:8080/filterFilmsByCategory?id=' + i);
+  }
+
+  function FetchFilteredRatList(rating){
+    if(rating === "all"){
+      fetchFilmData('http://localhost:8080/filterFilmsByCategory?id=0');
+    }
+    else {
+      fetchFilmData('http://localhost:8080/filterFilmsByRating?rating=' + rating)
+    }
   }
 
   return (
     <div className="App">
       <Navbar color='dark'>
-        <NavbarBrand>Totally Real And Not Auto-Generated Movies</NavbarBrand>
+        <NavbarBrand>
+          <h2 style={{color:'DodgerBlue'}}>Totally Real And Not Auto-Generated Movies</h2>
+        </NavbarBrand>
       </Navbar>
+        <Row>
+          <Col xs="6">
+            <FilterBar getFilteredList={FetchFilteredCatList} />
+          </Col>
+          <Col xs="6">
+            <FilterBarRating getFilteredList={FetchFilteredRatList} />
+          </Col>
+        </Row>
         <div className='list'>
-          <div className='filter-bar'>
-            <FilterBar getFilteredList={FetchFilteredList} />
-          </div>
 
           <div className='page-content'>
           <AddCard 
-            updateFilms={() => FetchFilteredList(0)}
+            updateFilms={() => FetchFilteredCatList(0)}
             />
             <CardGroup>
               { filmResponse.map(film =>
                 <FilmCard key={film.film_id}
                 filmInfo={film}
-                  fetchFilms={() => FetchFilteredList(0)}
+                  fetchFilms={() => FetchFilteredCatList(0)}
                   />
               )}
             </CardGroup>
