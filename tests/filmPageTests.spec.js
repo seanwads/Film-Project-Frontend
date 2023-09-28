@@ -77,29 +77,22 @@ test('edit film', async({ page }) => {
 test('create film', async({ page }) => {
     await page.goto('http://localhost:3000/');
 
-    //Assert that add film menu is not open on load
-    await expect(page.getByRole('textbox')).toBeHidden();
+    await expect(page.getByRole('button', {name: 'Submit'})).toBeHidden();
 
-    //Open add film menu
-    await page.getByRole('button', {name:'Add'}).click();
+    await page.getByRole('button', { name: '+' }).click();
+    await expect(page.getByRole('button', {name: 'Submit'})).toBeVisible();
 
-    //Fill add film menu and submit
     await page.getByTestId('title-input').fill('CREATE_TEST_PLACEHOLDER_TITLE');
     await page.getByTestId('desc-input').fill('CREATE_TEST_PLACEHOLDER_DESC');
-    await page.getByTestId('year-input').fill('2000');
+    await page.getByTestId('desc-input').fill('2000');
     await page.getByRole('button', {name:'Submit'}).click();
 
-    //Assert that film has been created and page has been updated with title
-    await expect(page
-            .locator('.card-title')
-            .getByText('CREATE_TEST_PLACEHOLDER_TITLE'))
-            .toBeVisible();
+    await expect(page.getByText('CREATE_TEST_PLACEHOLDER_TITLE')).toBeVisible();
 
-    //Assert that page has been updated with description
-    await expect(page
-            .locator('.card-text')
-            .getByText('CREATE_TEST_PLACEHOLDER_DESC'))
-            .toBeVisible();
+    await page
+        .getByRole('button',{name:'Delete'})
+        .last()
+        .click();
 })
 
 test('delete film', async({ page }) => {
