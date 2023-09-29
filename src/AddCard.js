@@ -11,7 +11,7 @@ export default function AddCardForm({ updateFilms}){
   
       event.preventDefault();
   
-      await fetch('http://localhost:8080/createFilm', {
+      await fetch('http://sakilaproject-env.eba-bus2q3ex.eu-north-1.elasticbeanstalk.com/createFilm', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({

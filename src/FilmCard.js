@@ -14,7 +14,7 @@ export default function FilmCard({ filmInfo, fetchFilms, updateCardCount }){
 
     useEffect(() => {
         if(isLoading){
-            fetchCategoryData('http://localhost:8080/getCategory?id=' + filmInfo.film_id);
+            fetchCategoryData('http://sakilaproject-env.eba-bus2q3ex.eu-north-1.elasticbeanstalk.com/getCategory?id=' + filmInfo.film_id);
             isLoading=false;
         }
     },[])
@@ -46,7 +46,7 @@ export default function FilmCard({ filmInfo, fetchFilms, updateCardCount }){
 function InfoCard({ film, updateFilm, fetchFilmList, categoryList}){
 
     async function deleteFilm(){
-        await fetch('http://localhost:8080/deleteFilmByID?id=' + film.film_id, {method:'DELETE'});
+        await fetch('http://sakilaproject-env.eba-bus2q3ex.eu-north-1.elasticbeanstalk.com/deleteFilmByID?id=' + film.film_id, {method:'DELETE'});
         fetchFilmList();
     }
     
@@ -84,7 +84,7 @@ function UpdateForm({ film, updateFilm, fetchFilmList }){
     const handleSubmit = async (event) => {
         event.preventDefault();
     
-        await fetch('http://localhost:8080/updateFilm', {
+        await fetch('http://sakilaproject-env.eba-bus2q3ex.eu-north-1.elasticbeanstalk.com/updateFilm', {
           method:'PUT',
           headers:{'Content-Type': 'application/json'},
           body: JSON.stringify({

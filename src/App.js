@@ -13,7 +13,7 @@ export default function App() {
 
   useEffect(() => {
     if(isLoading){
-      fetchFilmData('http://localhost:8080/allFilms');
+      fetchFilmData('http://sakilaproject-env.eba-bus2q3ex.eu-north-1.elasticbeanstalk.com/allFilms');
       isLoading=false;
     }
     
@@ -27,15 +27,15 @@ export default function App() {
   }
 
   function FetchFilteredCatList(i){
-    fetchFilmData('http://localhost:8080/filterFilmsByCategory?id=' + i);
+    fetchFilmData('http://sakilaproject-env.eba-bus2q3ex.eu-north-1.elasticbeanstalk.com/filterFilmsByCategory?id=' + i);
   }
 
   function FetchFilteredRatList(rating){
     if(rating === "all"){
-      fetchFilmData('http://localhost:8080/filterFilmsByCategory?id=0');
+      fetchFilmData('http://sakilaproject-env.eba-bus2q3ex.eu-north-1.elasticbeanstalk.com/filterFilmsByCategory?id=0');
     }
     else {
-      fetchFilmData('http://localhost:8080/filterFilmsByRating?rating=' + rating)
+      fetchFilmData('http://sakilaproject-env.eba-bus2q3ex.eu-north-1.elasticbeanstalk.com/filterFilmsByRating?rating=' + rating)
     }
   }
 
